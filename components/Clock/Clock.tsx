@@ -5,15 +5,21 @@ import { useEffect, useState } from "react"
 
 export default function Clock({ darkMode = false }: { darkMode?: boolean }) {
   const format = "h:mm A"
-  const [time, setTime] = useState(moment().format(format))
+  const [time, setTime] = useState<string | null>(null)
 
   useEffect(() => {
+    setTime(moment().format(format)) // Set time on mount (client only)
     const interval = setInterval(() => {
       setTime(moment().format(format))
     }, 1000)
 
     return () => clearInterval(interval)
   }, [format])
+
+  if (time === null) {
+    // Optionally render a placeholder or nothing until client hydration
+    return null
+  }
 
   return (
     <div

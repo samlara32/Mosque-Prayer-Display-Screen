@@ -1,5 +1,5 @@
-import { getMosqueData } from "@/services/MosqueDataService"
+import data from "../example-mosque/example-mosque-api-response.json"
 
 export async function GET(request: Request) {
-  return Response.json(await getMosqueData())
+  return Response.json(data)
 }
